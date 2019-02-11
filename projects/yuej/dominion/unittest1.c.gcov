@@ -1,0 +1,78 @@
+        -:    0:Source:unittest1.c
+        -:    0:Graph:unittest1.gcno
+        -:    0:Data:unittest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion_helpers.h"
+        -:    2:#include <stdio.h>
+        -:    3:#include <stdlib.h>
+        -:    4:#include <assert.h>
+        -:    5:
+function main called 1 returned 100% blocks executed 90%
+        1:    6:int main() {
+        -:    7:
+        1:    8:   printf("\nStarting Unit Test 1: getCost() function\n");
+call    0 returned 100%
+        -:    9:
+        -:   10:   // initialize card costs and the test array
+        -:   11:   int i;
+        1:   12:   int testCardCost[27] = {0, 2, 5, 8, 0, 3, 6, 6, 5, 4, 4, 5, 4, 4, 3, 4, 3, 5, 3, 5, 3, 4, 2, 5, 4, 4, 4};
+        1:   13:   int testCardName[27] = {curse, estate, duchy, province, copper, silver, gold, adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall, minion, steward, tribute, ambassador, cutpurse, embargo, outpost, salvager, sea_hag, treasure_map};
+        -:   14:
+        -:   15:   int testCheck[27];
+        1:   16:   char* cardNames[27] = {"curse", "estate", "duchy", "province", "copper", "silver", "gold", "adventurer", "council_room", "feast", "gardens", "mine", "remodel", "smithy", "village", "baron", "great_hall", "minion", "steward", "tribute", "ambassador", "cutpurse", "embargo", "outpost", "salvager", "sea_hag", "treasure_map"};
+        -:   17:
+        -:   18:   // loop to get the cost from function to test array
+       28:   19:   for(i = 0; i < 27; i++) {
+branch  0 taken 96%
+branch  1 taken 4% (fallthrough)
+       27:   20:      testCheck[i] = getCost(testCardName[i]);
+call    0 returned 100%
+        -:   21:   }
+        -:   22:
+        -:   23:   // loop to assert getCost() performed correctly
+        1:   24:   int assertCounter = 0;
+        -:   25:
+       28:   26:   for(i = 0; i < 27; i++) {
+branch  0 taken 96%
+branch  1 taken 4% (fallthrough)
+       27:   27:      if(!(testCardCost[i] == testCheck[i])) {
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+    #####:   28:         printf("Assert failed on this card: %s\n", cardNames[i]);
+call    0 never executed
+        -:   29:      }
+        -:   30:      else {
+       27:   31:         printf("Assert passed on this card: %s\n", cardNames[i]);
+call    0 returned 100%
+        -:   32:
+       27:   33:         assertCounter++;
+        -:   34:      }
+        -:   35:   }
+        -:   36:
+        -:   37:   // check getCost() performs correctly when passed a bad int
+        1:   38:   if(getCost(-8) == -1) {
+call    0 returned 100%
+branch  1 taken 100% (fallthrough)
+branch  2 taken 0%
+        1:   39:      printf("Assert passed on this card: %s\n", "-8");
+call    0 returned 100%
+        -:   40:
+        1:   41:      assertCounter++;
+        -:   42:   }
+        -:   43:   else {
+        -:   44:      ;   // do nothing
+        -:   45:   }
+        -:   46:
+        1:   47:   if(assertCounter == 28) {
+branch  0 taken 100% (fallthrough)
+branch  1 taken 0%
+        1:   48:      printf("Unit test 1 passed.\n");
+call    0 returned 100%
+        -:   49:   }
+        -:   50:   else {
+    #####:   51:      printf("Unit test 1 failed.\n");
+call    0 never executed
+        -:   52:   }
+        -:   53:
+        -:   54:}

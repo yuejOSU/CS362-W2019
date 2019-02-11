@@ -54,7 +54,7 @@ int main() {
       }
    }
 
-   if((testCount - originalCount) > 0 || (testCount - originalCount) < 3) {
+   if((testCount - originalCount) > 0 && (testCount - originalCount) < 3) {
       printf("Assert of test adventurer card draws: %d Treasure cards. Pass\n", (testCount - originalCount));
    }
    else {
