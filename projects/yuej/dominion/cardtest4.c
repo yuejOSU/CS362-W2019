@@ -40,7 +40,7 @@ int main() {
       printf("Assert passed, +4 cards drawn and Council Room card discarded.\n");
    }
    else {
-      printf("Assert failed, did not draw and/or dsicard Council Room card.\n");
+      printf("Assert failed, did not draw and/or discard Council Room card.\n");
       flag = -1;
    }
 
