@@ -15,7 +15,7 @@ int main() {
 
    struct gameState G;
    int k[10] = {minion, smithy, gardens, tribute, baron, adventurer, cutpurse, mine, embargo, outpost};
-   int i, player = 0, cardEffect_fail = 0, compareCount_fail = 0, deckCount_fail = 0, victoryCount_fail = 0;
+   int i, player = 0, num_passed = 0;
    srand(time(NULL));
 
    for(i = 0; i < ITERATIONS; i++) {
@@ -40,53 +40,26 @@ int main() {
       // copy game info to testG
       memcpy(&testG, &G, sizeof(struct gameState));
 
-      testG.hand[player][testG.handCount[player]] = smithy;
-      testG.handCount[player]++;
-
       // run cardEffect() w/ testG
-      int result = cardEffect(smithy, 0, 0, 0, &testG, 0, 0);
+      cardEffect(smithy, 0, 0, 0, &testG, 0, 0);
 
-      // check if cardEffect() failed
-      if(result == -1) {
-         cardEffect_fail++;
-      }
+      // check to see if +2 cards in testG vs G
+      if((G.handCount[player] + 2) == testG.handCount[player]) {
+         // check to see if testG.deckCount is less than G.rand_deckCount
+         if(testG.deckCount[player] < G.deckCount[player]) {
+            // check to see if 0 victory cards are pulled from supply count
+           if((G.supplyCount[estate] == testG.supplyCount[estate]) && (G.supplyCount[province] == testG.supplyCount[province]) && (G.supplyCount[duchy] == testG.supplyCount[duchy])) {
+              num_passed++;
+            }
 
-      // check to see if +3 cards in testG vs G
-      if(G.handCount[player] + 3 == testG.handCount[player]) {
-         ; // do nothing
-      }
-      else {
-         compareCount_fail++;
-      }
-
-      // check to see if testG.deckCount is less than G.rand_deckCount
-      if(testG.deckCount[player] < G.deckCount[player]) {
-         ; // do nothing
-      }
-      else {
-         deckCount_fail++;
+         }
       }
 
-      // check to see if 0 victory cards are pulled from supply count
-      if((G.supplyCount[estate] == testG.supplyCount[estate]) && (G.supplyCount[province] == testG.supplyCount[province]) && (G.supplyCount[duchy] == testG.supplyCount[duchy])) {
-         ; // do nothing
-      }
-      else {
-         victoryCount_fail++;
-      }
    }
 
-   // print results
-   if(cardEffect_fail == 0 && compareCount_fail == 0 && victoryCount_fail == 0) {
-      printf("All tests passed!\n");
+   if(num_passed == ITERATIONS) {
+      printf("ALL TESTS PASSED OUT OF %d ITERATIONS.\n\n", ITERATIONS);
    }
-   else {
-      printf("Some test(s) have failed!\n");
-   }
-   printf("CardEffect() failed %d times out of %d iterations.\n", cardEffect_fail, ITERATIONS);
-   printf("testG.handCount +3 cards vs G.handCount failed %d times out of %d iterations.\n", compareCount_fail, ITERATIONS);
-   printf("testG.deckCount less than G.deckCount failed %d times out of %d iterations.\n", deckCount_fail, ITERATIONS);
-   printf("0 victory cards pulled from supply count failed %d times out of %d iterations.\n", victoryCount_fail, ITERATIONS);
 
    return 0;
 
