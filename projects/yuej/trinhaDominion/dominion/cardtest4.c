@@ -11,7 +11,7 @@
 
 int main() {
 
-   printf("\nStarting Card Test 3: %s\n", CARD_TEST);
+   printf("\nStarting Card Test 4: %s\n", CARD_TEST);
 
    int flag = 0, i;
    int players = 2, player = 0, seed = 1000;
